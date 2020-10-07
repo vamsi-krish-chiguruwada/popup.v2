@@ -50,8 +50,18 @@
   text-decoration: none;
   text-align: center;
 
+ 
+}
+
+.btnclose{
   position: absolute;
   right: 22px;
+  bottom: 22.5px;
+
+}
+.btnSubmit{
+  position: absolute;
+  right: 100px;
   bottom: 22.5px;
 }
 

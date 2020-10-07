@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Popup from "./Components/Popup/Popup";
-
+import uuid from "uuid";
 class App extends React.Component {
   state = {
     showPopup: true

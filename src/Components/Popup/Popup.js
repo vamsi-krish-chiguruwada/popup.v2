@@ -1,32 +1,71 @@
 import React from "react";
 import "./Popup.css";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { v4 as uuidv4 } from "uuid";
 
 class Popup extends React.Component {
   state = {
     erroes: [
       {
         name: "Test Node",
-        id: "DHCGSJHGHSGDVCHBVMXBDV",
+        id: uuidv4(),
         message: "value cant be null",
+        hover:false,
+        hoverid:"0"
       },
       {
         name: "js",
-        id: "VDHCGSJHGHSGVMXBDDVCHBV",
+        id: uuidv4(),
         message: "value cant be null value cant be nullvalue cant be null",
+        hover:false,
+        hoverid:"1"
+
       },
       {
         name: "Test Node",
-        id: "HSGDVCJHGBDVHBVMXVDHCGS",
+        id: uuidv4(),
         message: "value cant be nullvalue cant be nullvalue cant be null",
+        hover:false,
+        hoverid:"2"
+
       },
       {
         name: "Node",
-        id: "SGDHVCHVDHCGBVMXBSJHGDV",
+        id: uuidv4(),
         message: "value cant be nullvalue cant be nullvalue cant be null",
+        hover:false,
+        hoverid:"3"
+
       },
     ],
   };
+  selectedIds = [];
+
+  bgColor = (e,per) => {
+   let temp = [...this.state.erroes];
+   temp[parseInt(e.currentTarget.id)].hover = per;
+    this.setState({ erroes: temp });
+  };
+
+  updateids = (id) =>{
+
+    console.log(id);
+    if(!this.selectedIds.includes(id)){
+      console.log("not in sids");
+      this.selectedIds.push(id);
+      console.log("pushed",this.selectedIds);
+    }else{
+      console.log("in sids");
+      this.selectedIds.splice(this.selectedIds.indexOf(id),1);
+      console.log("removed",this.selectedIds);
+    }
+  }
+
+  showIds = () =>{
+    this.selectedIds.map((per)=>alert(per))
+  }
+
+
   render() {
     return (
       <div className="Popup-background">
@@ -36,20 +75,21 @@ class Popup extends React.Component {
             {this.state.erroes.map((err) => {
               return (
                 <ErrorMessage
-                  key = {err.id}
-                  name={err.name}
-                  errId={err.id}
-                  message={err.message}
+                  {...err}
+                  key={err.id}
+                  updateids = {this.updateids}
+                  bgColor={this.bgColor}
                 />
               );
             })}
-            
           </div>
-          <button className="btn" onClick={this.props.toglePopup}>
+          <button className="btn btnclose" onClick={this.props.toglePopup}>
             Close
           </button>
+          <button className="btn btnSubmit" onClick={this.showIds}>
+            submit
+          </button>
         </div>
-        {/* <button >hide</button> */}
       </div>
     );
   }
